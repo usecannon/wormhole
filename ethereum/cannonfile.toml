@@ -1,0 +1,24 @@
+name = "wormhole"
+version = "0.0.1"
+
+[setting.initialGuardiens]
+defaultValue = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+
+[contract.CoreModule]
+artifact = "Implementation"
+
+[contract.TokenModule]
+artifact = "BridgeImplementation"
+
+[contract.NFTModule]
+artifact = "NFTBridgeImplementation"
+
+[contract.InitialSetup]
+artifact = "Setup"
+
+[contract.Wormhole]
+artifact = "Wormhole"
+args = [
+	"<%= contracts.InitialSetup.address %>", 
+	"0xa712ff99<%= defaultAbiCoder.encode(['address', 'address[]', 'uint16', 'uint16', 'bytes32', 'uint256'],[contracts.CoreModule.address,settings.initialGuardiens.split(','),chainId,chainId,HashZero,chainId]).slice(2) %>"
+]
